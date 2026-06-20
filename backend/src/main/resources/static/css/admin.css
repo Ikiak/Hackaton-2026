@@ -1,6 +1,8 @@
 body {
+    margin: 0;
     background-color: #f4f6f9;
     font-family: Arial, sans-serif;
+    color: #111827;
 }
 
 .admin-wrapper {
@@ -16,18 +18,25 @@ body {
 }
 
 .admin-sidebar h1 {
-    font-size: 22px;
-    margin-bottom: 32px;
+    font-size: 24px;
+    margin: 0 0 32px;
+}
+
+.admin-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .admin-sidebar a {
-    display: block;
     color: #d1d5db;
     text-decoration: none;
-    padding: 10px 0;
+    padding: 12px;
+    border-radius: 8px;
 }
 
 .admin-sidebar a:hover {
+    background-color: #1f2937;
     color: #ffffff;
 }
 
@@ -40,6 +49,16 @@ body {
     margin-bottom: 24px;
 }
 
+.admin-header h2 {
+    font-size: 30px;
+    margin: 0 0 8px;
+}
+
+.admin-header p {
+    color: #6b7280;
+    margin: 0;
+}
+
 .card-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -50,8 +69,8 @@ body {
 .info-card {
     background-color: #ffffff;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    padding: 22px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
 }
 
 .info-card span {
@@ -62,9 +81,31 @@ body {
 
 .info-card strong {
     display: block;
-    font-size: 30px;
+    font-size: 32px;
     margin-top: 8px;
-    color: #111827;
+}
+
+.table-section {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-title h3 {
+    margin: 0;
+}
+
+.section-title a {
+    color: #2563eb;
+    text-decoration: none;
 }
 
 .admin-table {
@@ -87,25 +128,49 @@ body {
     color: #374151;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.pagination button {
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
 .admin-form {
     max-width: 520px;
     background-color: #ffffff;
     border-radius: 12px;
     padding: 24px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.match-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 22px;
+    margin-bottom: 12px;
 }
 
 .admin-form label {
     display: block;
-    margin-top: 16px;
+    margin-top: 18px;
     margin-bottom: 6px;
     color: #374151;
 }
 
-.admin-form input,
-.admin-form select {
+.admin-form input {
     width: 100%;
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 11px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
 }
