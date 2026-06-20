@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.bolao.backend.dto.admin.PartidaAdminDTO;
 import br.com.bolao.backend.dto.admin.PartidaResultadoDTO;
+import br.com.bolao.backend.exception.AdminException;
 
 @Service
 public class AdminPartidaService {
@@ -24,7 +25,7 @@ public class AdminPartidaService {
                 .stream()
                 .filter(item -> item.id().equals(id))
                 .findFirst()
-                .orElse(new PartidaAdminDTO(id, "Brasil", "Argentina", "Final", "16/07/2026 16:00", "Pendente", "-"));
+                .orElseThrow(() -> new AdminException("Partida não encontrada."));
 
         return new PartidaResultadoDTO(
                 partida.id(),
@@ -34,6 +35,17 @@ public class AdminPartidaService {
                 partida.dataHora());
     }
 
+    public String lancarResultado(Long id, String golsA, String golsB) {
+        int golsSelecaoA = converterGols(golsA);
+        int golsSelecaoB = converterGols(golsB);
+
+        validarResultado(golsSelecaoA, golsSelecaoB);
+
+        PartidaResultadoDTO partida = buscarParaResultado(id);
+
+        return partida.selecaoA() + " " + golsSelecaoA + " x " + golsSelecaoB + " " + partida.selecaoB();
+    }
+
     public int contarPartidasPendentes() {
         return (int) listarPartidas()
                 .stream()
@@ -41,9 +53,29 @@ public class AdminPartidaService {
                 .count();
     }
 
-    public String lancarResultado(Long id, int golsA, int golsB) {
-        PartidaResultadoDTO partida = buscarParaResultado(id);
+    private void validarResultado(int golsA, int golsB) {
+        if (golsA < 0 || golsB < 0) {
+            throw new AdminException("Os gols não podem ser negativos.");
+        }
 
-        return partida.selecaoA() + " " + golsA + " x " + golsB + " " + partida.selecaoB();
+        if (golsA > 20 || golsB > 20) {
+            throw new AdminException("Informe um placar válido.");
+        }
+    }
+
+    private int converterGols(String valor) {
+        if (valor == null || valor.isBlank()) {
+            throw new AdminException("Informe os gols das duas seleções.");
+        }
+
+        if (!valor.matches("\\d+")) {
+            throw new AdminException("Os gols devem ser números inteiros positivos.");
+        }
+
+        if (valor.length() > 2) {
+            throw new AdminException("Informe um placar válido. O limite é de 20 gols por seleção.");
+        }
+
+        return Integer.parseInt(valor);
     }
 }
