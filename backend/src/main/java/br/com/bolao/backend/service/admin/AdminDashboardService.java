@@ -1,30 +1,35 @@
 package br.com.bolao.backend.service.admin;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import br.com.bolao.backend.dto.admin.DashboardResumoDTO;
 import br.com.bolao.backend.dto.admin.PartidaAdminDTO;
 import br.com.bolao.backend.dto.admin.RankingLinhaDTO;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminDashboardService {
 
     private final AdminRankingService adminRankingService;
     private final AdminPartidaService adminPartidaService;
+    private final AdminMockDataService adminMockDataService;
 
-    public AdminDashboardService(AdminRankingService adminRankingService, AdminPartidaService adminPartidaService) {
+    public AdminDashboardService(
+            AdminRankingService adminRankingService,
+            AdminPartidaService adminPartidaService,
+            AdminMockDataService adminMockDataService
+    ) {
         this.adminRankingService = adminRankingService;
         this.adminPartidaService = adminPartidaService;
+        this.adminMockDataService = adminMockDataService;
     }
 
     public DashboardResumoDTO buscarResumo() {
         return new DashboardResumoDTO(
-                1248,
-                15672,
+                adminMockDataService.buscarTotalUsuarios(),
+                adminMockDataService.buscarTotalPalpites(),
                 adminPartidaService.contarPartidasPendentes(),
-                64
+                adminMockDataService.buscarUsuariosAtivos24h()
         );
     }
 
