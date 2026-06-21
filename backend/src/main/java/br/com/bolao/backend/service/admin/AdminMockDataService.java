@@ -9,16 +9,8 @@ import java.util.List;
 @Service
 public class AdminMockDataService {
 
-    public int buscarTotalUsuarios() {
-        return 1248;
-    }
-
     public int buscarTotalPalpites() {
         return 15672;
-    }
-
-    public int buscarUsuariosAtivos24h() {
-        return 64;
     }
 
     public List<UsuarioRankingBaseDTO> listarUsuariosRanking() {
